@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/kevinchristyras/Desktop/mlops_devops_project/ml/mlruns/290823500081035012/642bcda8f04e4b04bd5008a5fdccce48/artifacts
+end_time: 1750323425455
+entry_point_name: ''
+experiment_id: '290823500081035012'
+lifecycle_stage: active
+run_id: 642bcda8f04e4b04bd5008a5fdccce48
+run_name: illustrious-owl-611
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1750323425429
+status: 4
+tags: []
+user_id: kevinchristyras
