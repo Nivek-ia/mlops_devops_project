@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pkl
+*.egg-info/
+*.env
+.venv/
+env/
+venv/
+
+# VSCode / IDE
+.vscode/
+.idea/
+
+# Terraform state files
+*.tfstate
+*.tfstate.backup
+*.terraform/
+
+# Ansible sensitive
+*.retry
+
+# Others
+.DS_Store
+

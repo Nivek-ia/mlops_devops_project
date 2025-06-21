@@ -1,0 +1,4 @@
+- hosts: api_servers
+  become: yes
+  roles:
+    - api

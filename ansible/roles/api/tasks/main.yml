@@ -1,0 +1,72 @@
+- name: Mettre à jour le serveur
+  apt:
+    update_cache: yes
+    upgrade: dist
+
+- name: Installer Docker si c'est pas installé 
+  apt:
+    name: docker.io
+    state: present
+
+- name: Installer pip3
+  apt:
+    name: python3-pip
+    state: present
+    update_cache: yes
+
+- name: Installer le module Python docker pour Ansible
+  pip:
+    name: docker
+    extra_args: --break-system-packages
+
+- name: S'assurer que le service Docker est lancé
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Installer rsync
+  apt:
+    name: rsync
+    state: present
+    update_cache: yes
+
+- name: Créer le dossier pour le code Docker
+  file:
+    path: /home/ubuntu/docker
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+    mode: '0755'
+
+- name: Copier le contexte Docker (Dockerfile + code)
+  synchronize:
+    src: "{{ playbook_dir }}/../"
+    dest: /home/ubuntu/docker
+    recursive: yes
+    rsync_opts:
+      - "--chmod=Du=rwx,Dg=rx,Do=rx,Fu=rw,Fg=r,Fo=r"
+    rsync_path: "rsync"
+
+- name: Construire l'image Docker pour l'API
+  docker_image:
+    name: api_image
+    tag: latest
+    source: build
+    build:
+      path: /home/ubuntu/docker
+      dockerfile: docker/Dockerfile.api
+
+- name: Supprimer l'ancien container API s'il existe
+  docker_container:
+    name: api_container
+    state: absent
+
+- name: Lancer le nouveau container API
+  docker_container:
+    name: api_container
+    image: api_image:latest
+    state: started
+    restart_policy: always
+    ports:
+      - "80:8000"
