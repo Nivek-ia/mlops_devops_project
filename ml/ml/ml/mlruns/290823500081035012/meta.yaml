@@ -1,6 +1,0 @@
-artifact_location: file:///Users/kevinchristyras/Desktop/mlops_devops_project/ml/mlruns/290823500081035012
-creation_time: 1750323320901
-experiment_id: '290823500081035012'
-last_update_time: 1750323320901
-lifecycle_stage: active
-name: epl-match-result-classification
